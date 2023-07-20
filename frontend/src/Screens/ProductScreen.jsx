@@ -1,11 +1,11 @@
 import {Link, useParams} from 'react-router-dom'
 import { Button, Card, Col, Image, ListGroup, Row } from 'react-bootstrap'
 import products from '../products'
-import Rating from '../Componenets/Rating'
+import Rating from '../Components/Rating'
 
 const ProductScreen = ()=>{
     const product_id = useParams()
-    const product = products.find(p=>p._id == product_id.id )
+    const product = products.find(p=>p._id === product_id.id )
     
 
     return(
@@ -59,7 +59,7 @@ const ProductScreen = ()=>{
                         </ListGroup.Item>
 
                         <ListGroup.Item>
-                            <Button className='btn-block' disabled={product.countInStock == 0} type='button'>Add to Cart</Button>
+                            <Button className='btn-block' disabled={product.countInStock === 0} type='button'>Add to Cart</Button>
                         </ListGroup.Item>
                     </Card>     
                 </Col> 

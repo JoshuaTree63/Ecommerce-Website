@@ -1,10 +1,12 @@
 import React from "react";
 import {Row, Col} from 'react-bootstrap'
 import products from '../products.js' 
-import Product from "../Componenets/Product.jsx";
+import Product from "../Components/Product.jsx";
+import axios from 'axios'
 
 
 const HomeScreen = ()=>{
+
 
     return(
         <div>
