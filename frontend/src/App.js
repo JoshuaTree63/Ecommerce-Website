@@ -1,6 +1,6 @@
 import {Container} from'react-bootstrap'
-import Footer from "./Componenets/Footer";
-import Header from "./Componenets/Header";
+import Footer from "./Components/Footer";
+import Header from "./Components/Header";
 import HomeScreen from './Screens/HomeScreen';
 import {BrowserRouter ,Route, Routes}from 'react-router-dom';
 import ProductScreen from './Screens/ProductScreen';
