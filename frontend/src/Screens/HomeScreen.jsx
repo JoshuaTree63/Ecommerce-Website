@@ -3,24 +3,23 @@ import {Row, Col} from 'react-bootstrap'
 import products from '../products.js' 
 import Product from "../Components/Product.jsx";
 import axios from 'axios'
-import { Link, useParams } from "react-router-dom";
+import {useParams} from "react-router-dom";
 
 
-const HomeScreen = ({match})=>{
+const HomeScreen = ()=>{
+
     const productId = useParams()
 
     const [products, setProducts] = useState([])
 
     useEffect(()=> {
-        async function fetchProducts () {
-
-            const {data} = await axios.get(`api/products/${productId._id}`)
+        async function fetchProduct () {
+            const {data} = await axios.get(`/api/products/${productId.id}`);
             setProducts(data)
         }
-        fetchProducts()
+        fetchProduct()
 
     }, [])
-
 
     return(
         <div>
