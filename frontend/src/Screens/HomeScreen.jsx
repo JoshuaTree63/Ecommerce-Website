@@ -8,18 +8,18 @@ import {useParams} from "react-router-dom";
 
 const HomeScreen = ()=>{
 
-    const productId = useParams()
+    // const productId = useParams()
 
-    const [products, setProducts] = useState([])
+    // const [products, setProducts] = useState([])
 
-    useEffect(()=> {
-        async function fetchProduct () {
-            const {data} = await axios.get(`/api/products/${productId.id}`);
-            setProducts(data)
-        }
-        fetchProduct()
+    // useEffect(()=> {
+    //     async function fetchProduct () {
+    //         const {data} = await axios.get(`/api/products/${productId.id}`);
+    //         setProducts(data)
+    //     }
+    //     fetchProduct()
 
-    }, [])
+    // }, [])
 
     return(
         <div>
