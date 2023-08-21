@@ -4,7 +4,7 @@ import Header from "./Components/Header";
 import HomeScreen from './Screens/HomeScreen';
 import {BrowserRouter ,Route, Routes}from 'react-router-dom';
 import ProductScreen from './Screens/ProductScreen';
-
+import CartScreen from './Screens/CartScreen';
 
 function App() {
   return (
@@ -17,6 +17,10 @@ function App() {
               {" "}            
               <Route path='/' element={<HomeScreen/>}/>
               <Route path='/product/:id' element={<ProductScreen/>}/>
+              <Route path='/cart/:id?' element={<CartScreen/>}/>
+
+              ##check CartScreen params##
+              
             </Routes>
           </Container>          
         </main>
