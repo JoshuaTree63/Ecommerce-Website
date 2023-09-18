@@ -4,8 +4,12 @@ from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
 
 from django.contrib.auth.models import User
-from base.models import Prodouct
-from base.serializers import ProdouctSerializer
+#
+from base.models import Product
+from base.serializers import ProductSerializer
+#For some resone the above didnt work for me ^^^
+
+
 
 # Create your views here.
 
@@ -15,13 +19,13 @@ from rest_framework import status
 
 @api_view(['GET'])
 def getProducts(request):
-    products = Prodouct.objects.all()
-    serializer = ProdouctSerializer(products, many=True)
+    products = Product.objects.all()
+    serializer = ProductSerializer(products, many=True)
     return Response(serializer.data)
 
 
 @api_view(['GET'])
 def getProduct(request, pk):
-    product = Prodouct.objects.get(_id=pk)
-    serializer = ProdouctSerializer(product, many=False)
+    product = Product.objects.get(_id=pk)
+    serializer = ProductSerializer(product, many=False)
     return Response(serializer.data)
