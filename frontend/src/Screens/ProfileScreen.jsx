@@ -16,15 +16,18 @@ const ProfileScreen = () => {
     const [confirmPassword, setConfirmPassword] = useState('')
     const [message, setMessage] = useState('')
 
-    const location = useLocation()
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const userDetails = useSelector(state => state.userDetails)
     const {error, loading, user} = userDetails
 
+    const userLogin = useSelector(state => state.userLogin)
+    const { userInfo } = userLogin
+
+    const navigate = useNavigate()    
+
     const userUpdateProfile = useSelector(state => state.userUpdateProfile)
-    const {success} = userUpdateProfile
+    const {success} = userUpdateProfile   
 
     useEffect(() => {
         if(!userInfo) {
@@ -40,7 +43,7 @@ const ProfileScreen = () => {
         }
 
 
-    }, [dispatch, navigate, userInfo, user, success])
+    }, [dispatch, navigate,userInfo, user, success])
 
     const submitHandler = (e) => {
         e.preventDefault()

@@ -17,8 +17,7 @@ import {
     USER_UPDATE_PROFILE_REQUEST,
 
     USER_UPDATE_PROFILE_SUCCESS,
-    USER_UPDATE_PROFILE_FAIL,
-    
+    USER_UPDATE_PROFILE_FAIL,   
     
     } 
 from "../constants/userConstants"
@@ -57,7 +56,6 @@ export const login = (email, password) => async (dispatch) =>{
             : error.message,
         })
     }
-
 }
 
 export const logout = ()=> (dispatch) =>{

@@ -3,32 +3,33 @@ import { useDispatch, useSelector } from "react-redux"
 import { addToCart, removeFromCart } from "../actions/cartActions"
 import { Button, Card, Col, Image, ListGroup, ListGroupItem, Row } from "react-bootstrap"
 import Message from "../Components/Message"
-import { Form, Link } from "react-router-dom"
+import { Form, Link, useNavigate } from "react-router-dom"
 
 
-const CartScreen = ({match, Location, history})=> {
+const CartScreen = ()=> {
 
-    const productId = match.params.id
-    const qty = Location.serach ? Number(Location.serach.split('=')[0]) : 1
+    // const productId = match.params.id
+    // const qty = Location.serach ? Number(Location.serach.split('=')[0]) : 1
 
     const dispatch = useDispatch()
+    const navigate= useNavigate()
 
     const cart = useSelector(start => start.cart)
     const {cartItems} = cart
 
 
-    useEffect(()=> {
-        if(productId){
-            dispatch(addToCart(productId, qty))
-        }
-    },[dispatch,productId, qty])
+    // useEffect(()=> {
+    //     if(productId){
+    //         dispatch(addToCart(productId, qty))
+    //     }
+    // },[dispatch,productId, qty])
 
     const removeFromCartHandler = (id)=> {
         dispatch(removeFromCart(id))
     }
 
     const checkoutHandler = ()=>{
-        history.push('/login?redirect=shipping')
+        navigate('/login?redirect=shipping')
     }
 
 
