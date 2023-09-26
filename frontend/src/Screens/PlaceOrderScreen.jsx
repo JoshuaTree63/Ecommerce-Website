@@ -1,11 +1,10 @@
 import React , {useState, useEffect} from "react"; 
-import FormContainer from "../Components/FormContainer"
 import { Button, Row, Col, ListGroup, Image, Card} from 'react-bootstrap'
-import {Link} from 'react-router-bootstrap'
+import {LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from "react-redux"
 import Message from '../Components/Message'
 import CheckoutSteps from "../Components/CheckoutSteps";
-import {creareOrder} from '../actions/orderActions'
+import {createOrder} from '../actions/orderActions'
 import { ORDER_CREATE_REST } from "../constants/orderConstants";
 
 
@@ -37,7 +36,7 @@ const PlaceOrderScreen =({history})=> {
 
 
     const placeOrder = () => {
-        dispatch(creareOrder({
+        dispatch(createOrder({
             orderItems:cart.cartItems,
             shippingAddress:cart.shippingAddress,
             paymentMethod:cart.paymentMethod,
@@ -90,7 +89,7 @@ const PlaceOrderScreen =({history})=> {
                                                 </Col>
 
                                                 <Col>
-                                                    <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                                    <LinkContainer  to={`/product/${item.product}`}>{item.name}</LinkContainer >
                                                 </Col>
 
                                                 <Col md={4}>
@@ -154,8 +153,7 @@ const PlaceOrderScreen =({history})=> {
                                     disabled={cart.cartItems === 0}
                                     onClick={placeOrder}>
                                 </Button>
-                            </ListGroup.Item>
-                            
+                            </ListGroup.Item>                            
 
                         </ListGroup>
                     </Card>

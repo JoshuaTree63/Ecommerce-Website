@@ -9,8 +9,6 @@ import {getUserDetails, updateUser} from '../actions/userActions'
 import { USER_UPDATE_RESET } from "../constants/userConstants"
 
 
-
-
 const UserEditScreen = ({match, history}) => {
 
     const userId = match.params.id
@@ -62,7 +60,7 @@ const UserEditScreen = ({match, history}) => {
             <FormContainer>            
                 <h1>Edit User</h1>
                 {loadingUpdate && <Loader/>}
-                {errorUpdate &&  <Message variant='danger'>{ererrorUpdateror}</Message> }
+                {errorUpdate &&  <Message variant='danger'>{errorUpdate}</Message> }
 
                 {loading ? <Loader/> : error ? <Message variant='danger'>{error}</Message> 
                 : (
