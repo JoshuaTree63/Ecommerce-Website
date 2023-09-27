@@ -6,13 +6,15 @@ import Message from "../Components/Message"
 import Loader from "../Components/Loader"
 import {createProduct, deleteProduct, listProducts} from "../actions/productActions"
 import { PRODUCT_CREATE_RESET } from "../constants/productConstants"
+import Paginate from "../Components/Paginate"
+
 
 const ProductListScreen = ({history, match}) => {
 
     const dispatch = useDispatch()
 
     const productList = useSelector(state => state.productList)
-    const {loading, error, products} = productList
+    const {loading, error, products, pages, page} = productList
 
     const productDelete = useSelector(state => state.productDelete)
     const {loading: loadingDelete , error: errorDelete, success: successDelete } = productDelete
@@ -23,7 +25,7 @@ const ProductListScreen = ({history, match}) => {
     const userLogin = useSelector(state => state.userLogin)
     const {userInfo} = userLogin
 
-
+    let keyword = history.location.search
     useEffect(() =>{
         dispatch({type:PRODUCT_CREATE_RESET})
 
@@ -34,10 +36,10 @@ const ProductListScreen = ({history, match}) => {
         if(successCreate){
             history.push(`/admin/product/${createdProduct.id}/edit`)
         }else{
-            dispatch(listProducts())
+            dispatch(listProducts(keyword))
         }
 
-    }, [dispatch, history, userInfo, successDelete, successCreate, createdProduct])
+    }, [dispatch, history, userInfo, successDelete, successCreate, createdProduct, keyword])
 
     const deleteHandler = (id) => {
         if(window.confirm('Are you sure you want to delete this prdouct?')){
@@ -76,6 +78,7 @@ const ProductListScreen = ({history, match}) => {
                 :error
                     ? (<Message variant='danger'>{error}</Message>)
                     : (
+                        <div>
                         <Table striped border hover responsive className="table-sm">
                             <thead>
                                 <tr>
@@ -109,10 +112,11 @@ const ProductListScreen = ({history, match}) => {
                                             </Button>
                                         </td>
                                     </tr>
-
                                 ))}
                             </tbody>
+                            <Paginate pages={pages} page={page} isAdmin={true}/>
                         </Table>
+                        </div>
                     )}
 
         </div>

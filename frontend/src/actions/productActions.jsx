@@ -23,6 +23,10 @@ import {
     PRODUCT_CREATE_REVIEW_FAIL,
     PRODUCT_CREATE_REVIEW_REQUEST,
     PRODUCT_CREATE_REVIEW_SECCESS,
+
+    PRODUCT_TOP_FAIL,
+    PRODUCT_TOP_REQUEST,
+    PRODUCT_TOP_SECCESS,
    
     } from '../constants/productConstants'
 
@@ -46,6 +50,28 @@ export const listProducts = (keyword = '')=> async (dispatch) =>{
     }
 
 }
+
+
+export const listTopProducts = ()=> async (dispatch) =>{
+    try {
+        dispatch({type: PRODUCT_TOP_REQUEST})
+
+        const {data} = await axios.get(`/api/products/top/`);
+        dispatch({
+            type: PRODUCT_TOP_SECCESS,
+            payload: data 
+        })
+
+    } catch (error) {
+        dispatch({
+            type: PRODUCT_TOP_FAIL,
+            payload: error.response && error.response.data.detail
+            ? error.response.data.detail 
+            : error.message,
+        })
+    }
+}
+
 
 export const listProductDetails = (id)=> async (dispatch) =>{
     try {
