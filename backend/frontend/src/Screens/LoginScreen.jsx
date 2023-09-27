@@ -8,29 +8,27 @@ import Loader from "../Components/Loader"
 import {login} from '../actions/userActions'
 
 
-const LoginScreen = () => {
+const LoginScreen = ({ location, history }) => {    
     
     const [email, setEmail] = useState('')
     const [password, setPassword] = useState('')
-    
-    const location = useLocation()
-    const navigate = useNavigate()
+
     const dispatch = useDispatch()
 
-    const redirect = location.state ? Number(location.state) : '/'    
+    const redirect = location.search ? location.search.split('=')[1] : '/'
+
     const userLogin = useSelector(state => state.userLogin)
-    const {error, loading, userInfo} = userLogin
+    const { error, loading, userInfo } = userLogin
 
     useEffect(() => {
-        if(userInfo) {
-            navigate(redirect)
+        if (userInfo) {
+            history.push(redirect)
         }
-    }, [navigate, userInfo, redirect])
+    }, [history, userInfo, redirect])
 
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(login(email, password))
-
     }
 
     return (

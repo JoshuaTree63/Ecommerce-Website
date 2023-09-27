@@ -1,6 +1,6 @@
 import React,{useEffect, useState} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
-import {Link} from 'react-router-dom'
+import {Link, useParams, useNavigate } from 'react-router-dom'
 import { Button, Card, Col, Form, Image, ListGroup, ListGroupItem, Row } from 'react-bootstrap'
 import Rating from '../Components/Rating'
 import Loader from '../Components/Loader'
@@ -10,6 +10,7 @@ import { PRODUCT_CREATE_REVIEW_RESET } from '../constants/productConstants'
 
 
 const ProductScreen = ({match, history})=>{
+    
     const [qty, setQty] = useState(1)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')

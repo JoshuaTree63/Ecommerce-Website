@@ -10,13 +10,14 @@ import ProductCarousel from '../Components/ProductCarousel'
 
 
 
-
 const HomeScreen = ({history})=>{
+
     const dispatch = useDispatch() 
     const productList = useSelector(state => state.productList)
     const {error, loading, products, page, pages} = productList
 
     let keyword = history.location.search
+        
     useEffect(()=> {
         dispatch(listProducts(keyword))
 

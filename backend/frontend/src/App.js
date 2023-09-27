@@ -2,7 +2,7 @@ import {Container} from'react-bootstrap'
 import Footer from "./Components/Footer";
 import Header from "./Components/Header";
 import HomeScreen from './Screens/HomeScreen';
-import {BrowserRouter ,Route, Routes}from 'react-router-dom';
+import {HashRouter ,Route, Routes}from 'react-router-dom';
 import ProductScreen from './Screens/ProductScreen';
 import CartScreen from './Screens/CartScreen';
 import LoginScreen from './Screens/LoginScreen';
@@ -23,13 +23,13 @@ import OrderListScreen from './Screens/OrderListScreen';
 function App() {
   return (
     
-    <BrowserRouter>
+    <HashRouter>
       <Header />    
         <main className="py-3">
           <Container>
             <Routes>
-              {" "}            
-              <Route path='/' element={<HomeScreen/>} exact/>
+                        
+              <Route path='/' element={<HomeScreen/>} exact />
               <Route path='/login' element={<LoginScreen/>}/>
               <Route path='/register' element={<RegisterScreen/>}/>
               <Route path='/profile' element={<ProfileScreen/>}/>
@@ -46,14 +46,13 @@ function App() {
               <Route path='/admin/productlist' element={<ProductListScreen/>}/>           
               <Route path='/admin/product/:id/edit' element={<ProductEditScreen/>}/>
 
-              <Route path='/admin/orderlist' element={<OrderListScreen/>}/>           
+              <Route path='/admin/orderlist' element={<OrderListScreen/>}/>         
  
-
             </Routes>
           </Container>          
         </main>
         <Footer />
-    </BrowserRouter>  
+    </HashRouter>  
 
   );
 }

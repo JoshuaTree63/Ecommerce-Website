@@ -6,10 +6,10 @@ import Message from "../Components/Message"
 import { Form, Link, useNavigate } from "react-router-dom"
 
 
-const CartScreen = ()=> {
+const CartScreen = ({ match, location, history })=> {
 
-    // const productId = match.params.id
-    // const qty = Location.serach ? Number(Location.serach.split('=')[0]) : 1
+    const productId = match.params.id
+    const qty = location.serach ? Number(location.serach.split('=')[0]) : 1
 
     const dispatch = useDispatch()
     const navigate= useNavigate()
@@ -18,18 +18,18 @@ const CartScreen = ()=> {
     const {cartItems} = cart
 
 
-    // useEffect(()=> {
-    //     if(productId){
-    //         dispatch(addToCart(productId, qty))
-    //     }
-    // },[dispatch,productId, qty])
+    useEffect(()=> {
+        if(productId){
+            dispatch(addToCart(productId, qty))
+        }
+    },[dispatch,productId, qty])
 
     const removeFromCartHandler = (id)=> {
         dispatch(removeFromCart(id))
     }
 
     const checkoutHandler = ()=>{
-        navigate('/login?redirect=shipping')
+        history.push('/login?redirect=shipping')
     }
 
 
