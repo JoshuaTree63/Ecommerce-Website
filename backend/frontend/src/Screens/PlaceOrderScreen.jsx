@@ -1,4 +1,4 @@
-import React , {useState, useEffect} from "react"; 
+import React , {useEffect} from "react"; 
 import { Button, Row, Col, ListGroup, Image, Card} from 'react-bootstrap'
 import {LinkContainer } from 'react-router-bootstrap'
 import { useDispatch, useSelector } from "react-redux"
@@ -6,15 +6,17 @@ import Message from '../Components/Message'
 import CheckoutSteps from "../Components/CheckoutSteps";
 import {createOrder} from '../actions/orderActions'
 import { ORDER_CREATE_REST } from "../constants/orderConstants";
+import { useNavigate } from "react-router-dom";
 
 
 
-const PlaceOrderScreen =({history})=> {
+const PlaceOrderScreen =()=> {
 
     const orderCreate = useSelector(state => state.orderCreate)
     const {order, error, success} = orderCreate
 
     const dispatch = useDispatch()
+    const navigate = useNavigate()
     const cart = useSelector (state => state.cart)
 
     cart.itemsPrice = cart.cartItems.reduce((acc, item) => acc + item.price * item.qty, 0).toFixed(2)
@@ -24,15 +26,15 @@ const PlaceOrderScreen =({history})=> {
     cart.totalPrice = (Number(cart.itemsPrice) + Number(cart.shippingPrice) + Number(cart.taxPrice)).toFixed(2)
 
     if(!cart.paymentMethod){
-        history.push('/payment')
+        navigate('/payment')
     }
 
     useEffect(()=> {
         if(success){
-            history.push(`/order/${order._id}`)
+            navigate(`/order/${order._id}`)
             dispatch({type: ORDER_CREATE_REST})
         }
-    },[success, history])
+    },[success])
 
 
     const placeOrder = () => {
@@ -64,6 +66,7 @@ const PlaceOrderScreen =({history})=> {
                                 {'   '}
                                 {cart.shippingAddress.country}
                             </p>
+                            
                         </ListGroup.Item>
 
                         <ListGroup.Item>

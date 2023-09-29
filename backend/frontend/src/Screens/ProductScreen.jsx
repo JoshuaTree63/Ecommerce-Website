@@ -14,8 +14,10 @@ const ProductScreen = ({match, history})=>{
     const [qty, setQty] = useState(1)
     const [rating, setRating] = useState(0)
     const [comment, setComment] = useState('')
+    const { id } = useParams();
 
     const dispatch = useDispatch()
+    const navigate = useNavigate();
 
     const productDetails = useSelector(state => state.productDetails)
     const {loading, error, product} = productDetails
@@ -42,21 +44,10 @@ const ProductScreen = ({match, history})=>{
     }, [dispatch, match, successProductReview])
 
     const addToCartHandler = () =>(
-        history.push(`/cart/${match.params.id}?qty=${qty}`)
+        navigate(`/cart/${id}?qty=${qty}`)
     )
 
-    const submitHandler = (e) =>{
-        e.preventDefault()
-        dispatch(createProductReview(
-            match.params.id, {
-                rating,
-                comment
-            }
 
-        ))
-
-    }
-    
     return(
         <div>
             <Link to='/' className='btn btn-light my-3'>Go Back</Link>
@@ -172,47 +163,7 @@ const ProductScreen = ({match, history})=>{
                                         {loadingProductReview && <Loader/>}
                                         {successProductReview && <Message variant='success'>Review Submitted</Message>}
                                         {errorProductReview && <Message variant='danger'>{errorProductReview}</Message>}
-
-                                        {userInfo ? (
-                                            <Form onSubmit={submitHandler}>
-                                                <Form.Group controlId='rating'>
-                                                    <Form.Label>Rating</Form.Label>
-                                                    <Form
-                                                        as='select'
-                                                        value={rating}
-                                                        onChange={(e) => setRating(e.target.value)}
-                                                    >
-                                                        <option value=''>Select...</option>
-                                                        <option value='1'>1 - Poor</option>
-                                                        <option value='2'>2 - Fair</option>
-                                                        <option value='3'>3 - Good</option>
-                                                        <option value='4'>4 - Very Good</option>
-                                                        <option value='5'>5 - Excellent</option>
-                                                    </Form>
-                                                </Form.Group>
-
-                                                <Form.Group controlId='comment'>
-                                                    <Form.Label>Review</Form.Label>
-                                                    <Form.Control
-                                                        as='textarea'
-                                                        row='5'
-                                                        value={comment}
-                                                        onChange={(e) => setComment(e.target.value)}
-                                                    ></Form.Control>
-                                                </Form.Group>
-
-                                                <Button
-                                                    disabled={loadingProductReview}
-                                                    type='submit'
-                                                    variant='primary'
-                                                    >
-                                                    Submit
-                                                </Button>
-                                            </Form>
-                                        ): (
-                                            <Message variant='info'>Please <Link to='/login'>Login</Link> to write a review</Message>
-                                        )}
-
+                                       
                                     </ListGroup.Item>
                                 </ListGroup>
                             </Col>

@@ -8,35 +8,37 @@ import Loader from "../Components/Loader"
 import {login} from '../actions/userActions'
 
 
-const LoginScreen = ({ location, history }) => {    
-    
-    const [email, setEmail] = useState('')
-    const [password, setPassword] = useState('')
+const LoginScreen = () => {   
+ 
 
-    const dispatch = useDispatch()
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
 
-    const redirect = location.search ? location.search.split('=')[1] : '/'
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-    const userLogin = useSelector(state => state.userLogin)
-    const { error, loading, userInfo } = userLogin
+    const location = useLocation();
+    const redirect = location.state ? location.state.from : '/';
+
+    const userLogin = useSelector(state => state.userLogin);
+    const { error, loading, userInfo } = userLogin;
 
     useEffect(() => {
         if (userInfo) {
-            history.push(redirect)
+            navigate(redirect);
         }
-    }, [history, userInfo, redirect])
+    }, [userInfo, navigate, redirect]);
 
     const submitHandler = (e) => {
-        e.preventDefault()
-        dispatch(login(email, password))
-    }
+        e.preventDefault();
+        dispatch(login(email, password));
+    };
 
     return (
         <FormContainer>
             <h1>Sign In</h1>
             {error && <Message variant='danger'>{error}</Message>}
             {loading && <Loader />}
-
             <Form onSubmit={submitHandler}>
                 <Form.Group controlId='email'>
                     <Form.Label>Email Address</Form.Label>
@@ -45,34 +47,33 @@ const LoginScreen = ({ location, history }) => {
                         placeholder='Enter Email'
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        >
-                    </Form.Control>
+                    />
                 </Form.Group>
-
                 <Form.Group controlId='password'>
                     <Form.Label>Password</Form.Label>
-                    <Form.Control 
+                    <Form.Control
                         type='password'
-                        placeholder='Enter password'
+                        placeholder='Enter Password'
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        >                                                    
-                    </Form.Control>
+                    />
                 </Form.Group>
-
-                <Button type='submit' variant="primary">Sign In</Button>
+                <Button type='submit' variant='primary'>
+                    Sign In
+                </Button>
             </Form>
-
-            <Row className="py-3">
+            <Row className='py-3'>
                 <Col>
-                    New costomer? <Link
-                        to={redirect ? `/register?redirect=${redirect}` : '/register'}>
+                    New Customer?{' '}
+                    <Link
+                        to={`/register${redirect !== '/' ? `?redirect=${encodeURIComponent(redirect)}` : ''}`}
+                    >
                         Register
                     </Link>
                 </Col>
             </Row>
         </FormContainer>
-    )
+    );
 }
 
 export default LoginScreen

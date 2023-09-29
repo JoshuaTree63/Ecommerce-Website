@@ -9,12 +9,14 @@ import Loader from "../Components/Loader";
 import {getOrderDetails, payOrder, deliverOrder} from '../actions/orderActions'
 import {Link} from 'react-router-bootstrap'
 import { ORDER_PAY_RESET, ORDER_DELIVER_RESET} from "../constants/orderConstants";
+import { useNavigate, useParams } from "react-router-dom";
 
 
-const OrderScreen =({match, history})=> {
+const OrderScreen =()=> {
 
-    const orderId = match.params.id
+    const {id: orderId} = useParams()
     const dispatch = useDispatch()
+    const navigate = useNavigate()
 
     const [sdkReady, setSdkReady] = useState(false)
 
@@ -36,7 +38,7 @@ const OrderScreen =({match, history})=> {
 
     const addPayPalScript = ()=>{
         const script = document.createElement('script')
-        script.type = 'text\javescript'
+        script.type = 'text/javescript'
         script.src = 'https://www.paypal.com/sdk/js?client-id=AWhkrpOaRgdisahBKJmogotqPfbcAjXeVG1QjoYE5UOARGp-h5SgfbSOqwCdeRTBBVSRtQJSe0WFzWl5'
         script.async = true
         script.onload = ()=> {
@@ -46,14 +48,12 @@ const OrderScreen =({match, history})=> {
     }
 
     useEffect(()=> {
-
         if(!userInfo) {
-            history.push('/login')
+            navigate('/login')
         }
         if(!order || successPay || order._id !== Number(orderId) || successDeliver){
             dispatch({type:ORDER_PAY_RESET})
             dispatch({type:ORDER_DELIVER_RESET})
-
             dispatch(getOrderDetails(orderId)) 
 
         } else if (!order.isPaid) {

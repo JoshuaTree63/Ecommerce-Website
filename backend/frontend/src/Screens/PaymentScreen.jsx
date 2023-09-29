@@ -25,6 +25,7 @@ const PaymentScreen = () => {
     const submitHandler = (e) => {
         e.preventDefault()
         dispatch(savePaymentMethod(paymentMethod))
+        localStorage.setItem('paymentMethod', paymentMethod)
         navigate('/placeorder')
     }
 
