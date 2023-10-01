@@ -93,7 +93,7 @@ export const register = (name, email, password) => async (dispatch) =>{
             }
         }
 
-        const {data} = await axios.get(
+        const {data} = await axios.post(
             '/api/users/register/',
             {'name': name, 'email': email, 'password': password},
             config)
@@ -130,7 +130,6 @@ export const getUserDetails = (id) => async (dispatch, getState) =>{
 
         const {
             userLogin: {userinfo},
-
         } = getState()
 
         const config = {
@@ -141,8 +140,7 @@ export const getUserDetails = (id) => async (dispatch, getState) =>{
         }
 
         const {data} = await axios.get(
-            `/api/users/${id}
-            `,
+            `/api/users/${id}`,
             config)
 
         dispatch({
@@ -163,21 +161,21 @@ export const getUserDetails = (id) => async (dispatch, getState) =>{
 }
 
 
-export const UpdateUserProfile = (user) => async (dispatch, getState) =>{
+export const updateUserProfile = (user) => async (dispatch, getState) =>{
     try {
         dispatch({
             type: USER_UPDATE_PROFILE_REQUEST
         })
 
         const {
-            userLogin: {userinfo},
+            userLogin: {userInfo},
 
         } = getState()
 
         const config = {
             headers: {
                 'Content-type': 'application/json',
-                Authorization: `Bearer ${userinfo.token}`
+                Authorization: `Bearer ${userInfo.token}`
             }
         }
 

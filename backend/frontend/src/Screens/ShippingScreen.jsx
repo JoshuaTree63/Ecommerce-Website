@@ -7,7 +7,7 @@ import CheckoutSteps from "../Components/CheckoutSteps";
 import { useNavigate } from "react-router-dom";
 
 
-const ShippingScreen =({history})=> {
+const ShippingScreen =()=> {
     
 
     const cart = useSelector(state => state.cart)

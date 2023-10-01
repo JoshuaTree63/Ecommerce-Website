@@ -3,7 +3,7 @@ import { Row, Col, Form, Button, Table } from 'react-bootstrap'
 import {  useLocation, useNavigate } from "react-router-dom"
 import {LinkContainer} from 'react-router-bootstrap'
 import { useDispatch, useSelector } from "react-redux"
-import {getUserDetails, UpdateUserProfile} from '../actions/userActions'
+import {getUserDetails, updateUserProfile} from '../actions/userActions'
 import Message from "../Components/Message"
 import Loader from "../Components/Loader"
 import { USER_UPDATE_PROFILE_RESET } from "../constants/userConstants"
@@ -57,7 +57,7 @@ const ProfileScreen = () => {
         if (password !== confirmPassword) {
             setMessage("The password dont match")
         } else {
-            dispatch(UpdateUserProfile({
+            dispatch(updateUserProfile({
                 'id': user._id,
                 'name':name,
                 'email': email,

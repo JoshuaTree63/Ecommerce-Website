@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from "react"
 import FormContainer from "../Components/FormContainer"
 import { Form, Button } from 'react-bootstrap'
-import { Link, useLocation, useNavigate } from "react-router-dom"
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom"
 import { useDispatch, useSelector } from "react-redux"
 import Message from "../Components/Message"
 import Loader from "../Components/Loader"
@@ -9,16 +9,16 @@ import {getUserDetails, updateUser} from '../actions/userActions'
 import { USER_UPDATE_RESET } from "../constants/userConstants"
 
 
-const UserEditScreen = ({match, history}) => {
+const UserEditScreen = () => {
 
-    const userId = match.params.id
+    const { id } = useParams()
+    const navigate = useNavigate()
     
     const [name, setName] = useState('')
     const [email, setEmail] = useState('')    
     const [isAdmin, setIsAdmin] = useState(false) 
 
     const location = useLocation()
-    const navigate = useNavigate()
     const dispatch = useDispatch()
 
     const userDetails = useSelector(state => state.userDetails)
@@ -31,11 +31,11 @@ const UserEditScreen = ({match, history}) => {
 
         if(successUpdate){
             dispatch({type:USER_UPDATE_RESET})
-            history.push('/admin/userlist')
+            navigate('/admin/userlist')
         }else {
 
-            if(!user.name || user._id !== Number(userId)){
-                dispatch(getUserDetails(userId))
+            if(!user.name || user._id !== Number(id)){
+                dispatch(getUserDetails(id))
             }else {
                 setName(user.name)
                 setEmail(user.email)
@@ -43,7 +43,7 @@ const UserEditScreen = ({match, history}) => {
             } 
         }          
         
-    }, [user, userId, successUpdate, history])
+    }, [user, id, navigate, successUpdate])
 
     const submitHandler = (e) => {
         e.preventDefault()
